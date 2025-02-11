@@ -64,3 +64,12 @@ print(age)
 
 age_days = age * 365
 print("Your age in days is ",age_days,"days")
+
+# set
+s = {1,2,3}
+print(s)
+
+# dictionary
+d = { 1: 1, 2: "zaina", 3:5, 'teacher':"Romaric"}
+print(d)
+print(d[2],"&", d['teacher'])
