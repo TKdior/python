@@ -1,3 +1,4 @@
+# Function basics arithmetics operations
 def basic_arithmetic_operations():
     print("Select an operation:")
     print("1. Addition")

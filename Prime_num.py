@@ -1,6 +1,5 @@
 def func(num):
  a = 2
-
 count = 0
 while count < num:
     for b in range(2, int(a ** 0.5)+1):
@@ -11,5 +10,5 @@ while count < num:
             count +=1
             a +=1
             
-           num= 20
+           num = 20
 func(num)
