@@ -1,3 +1,4 @@
+'''
 # Function basics arithmetics operations
 def basic_arithmetic_operations():
     print("Select an operation:")
@@ -11,7 +12,7 @@ def basic_arithmetic_operations():
     choice = int(input("Enter your choice: "))
     if choice == 5:
         print("BYE")
-        return
+        return 1
 
     num1 = float(input("Enter the first number: "))
     num2 = float(input("Enter the second number: "))
@@ -35,7 +36,7 @@ def basic_arithmetic_operations():
         print("Invalid choice!")
 
 # Call the function to execute
-basic_arithmetic_operations()
+result= basic_arithmetic_operations()
 
 
 def basic_bitwise_operations():
@@ -80,3 +81,23 @@ def basic_bitwise_operations():
 
 # Call the function to execute
 basic_bitwise_operations()
+'''
+num= 13.1
+num.__ceil__()
+print(num)
+
+def prime(n):
+    """ 
+    A function which lists prime numbers
+    """
+
+    for i in range(2, n+1):
+        isprime = True
+        for j in range(2, i):
+            if i % j == 0:
+                isprime = False
+                break
+        if isprime:
+            print(i)
+
+prime(800)

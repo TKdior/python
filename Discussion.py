@@ -1,5 +1,7 @@
 
 def discussion(moi,lui):
-    print("{}:{}".format(moi,lui))
-    discussion("Machine","Bonjour et bienvenue")
-    discussion("Dior","I'm good and you")
+    print("Machine : {}".format(moi))
+    print("Dior : {}".format(lui))
+    
+discussion("Bonjour et bienvenue","Bonjour ,Merci!")
+discussion("Dior","bonjour,Merci")

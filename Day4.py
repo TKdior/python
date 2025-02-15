@@ -13,6 +13,16 @@ while i < 13:
     print(f"{number} * {i} = {number * i}")
     i += 1
 """
+'''
+for i in range(4):
+    print(i)
+    '''
+'''
+x = 0
+while x<10:
+  print(x)
+  x +=1
+  '''
 
 
 print("Using the while and the for loops to generate a multiplication table")
