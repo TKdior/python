@@ -5,7 +5,7 @@ import time
 import random
 import tkinter
 
-WIDTH, HEIGHT = 500,500
+WIDTH, HEIGHT = 800,500
 COLORS = ['black','purple','cyan','pink','brown']
 
 
@@ -28,19 +28,21 @@ def get_number_of_racers():
 
 def race(colors):
    turtles =  create_turtles(colors)
-     
+  
 
    while True:
        for racer in turtles:
-           distance = random.randrange(1,30)
-           racer.forward(distance)
+            distance = random.randrange(1,30)
+            racer.forward(distance)
 
-           x,y = racer.pos()
-           # passed the finish line
-           if y >= HEIGHT//2 - 10:
+            x,y = racer.pos()
+           
+            # passed the finish line
+            if y >= HEIGHT//2 - 10:
+             
                
-               # accessing the color of the winner
-               return colors[turtles.index(racer)]
+                # accessing the color of the winner
+                return colors[turtles.index(racer)]
 
 def draw_track():
     goto(-350,200)
@@ -118,4 +120,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-tkinter.mainloop()
