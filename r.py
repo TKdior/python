@@ -3,12 +3,11 @@ import random
 import time
 import tkinter as tk
 
-
+# Constants
 WIDTH, HEIGHT = 800, 600  # Screen size
 LANE_HEIGHT = 100  # Each racer's lane height
 COLORS = ['black', 'purple', 'cyan', 'pink', 'brown']
 start_pressed = False  # Flag for race start
-BACKGROUND_IMAGE = "background.gif" 
 
 def get_number_of_racers():
     #Get number of racers from user input
@@ -92,7 +91,7 @@ def draw_track(num_racers):
         turtle.goto(WIDTH // 2 - 20, start_y - (i + 1) * LANE_HEIGHT)
 
 def create_turtles(num_racers):
-    """Creates and positions turtles at the start line."""
+    #Creates and positions turtles at the start line
     turtles = []
     start_x = -WIDTH // 2 + 30
     track_height = num_racers * LANE_HEIGHT
@@ -110,20 +109,18 @@ def create_turtles(num_racers):
     return turtles
 
 def init_turtle():
-    """Initializes the Turtle screen."""
+    #Initializes the Turtle screen
     screen = turtle.Screen()
     screen.setup(WIDTH, HEIGHT)
-    screen.title("Turtle Race")
+    #screen.title("Turtle Race")
     
-    # Load and set background image
-   
-    screen.bgpic(BACKGROUND_IMAGE)
-   
+    screen.bgpic("background.gif")  # Set the background image
+    
 
     return screen
 
 def create_tkinter_button():
-    #Creates a  Start button with a Tkinter  
+    #Creates a Tkinter window with a Start button
     global root
     root = tk.Tk()
     root.title("Start the Race")
