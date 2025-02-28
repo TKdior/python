@@ -3,14 +3,15 @@ import random
 import time
 import tkinter as tk
 
-# Constants
+
 WIDTH, HEIGHT = 800, 600  # Screen size
 LANE_HEIGHT = 100  # Each racer's lane height
 COLORS = ['black', 'purple', 'cyan', 'pink', 'brown']
 start_pressed = False  # Flag for race start
+BACKGROUND_IMAGE = "background.gif" 
 
 def get_number_of_racers():
-    """Get number of racers from user input."""
+    #Get number of racers from user input
     while True:
         racers = input("Enter the number of racers (2-5): ")
         if racers.isdigit():
@@ -20,13 +21,13 @@ def get_number_of_racers():
         print("Invalid input! Please enter a number between 2 and 5.")
 
 def start_race():
-    """Starts the race when the button is clicked."""
+    #Starts the race when the button is clicked
     global start_pressed
     start_pressed = True
     root.quit()  # Close the Tkinter window
 
 def race(turtles):
-    """Moves turtles randomly until one reaches the finish line."""
+    #Moves turtles randomly until one reaches the finish line
     while not start_pressed:
         time.sleep(0.1)  # Wait for start
 
@@ -38,7 +39,7 @@ def race(turtles):
                 return racer.color()[0]
 
 def declare_winner(winner_turtle):
-    """Displays winner's color name and doubles the turtle's size."""
+    #Displays winner's color name and doubles the turtle's size
     winner_turtle.shapesize(2)  # Double the turtle size
     
     # Display "WINNER!" text
@@ -59,7 +60,7 @@ def declare_winner(winner_turtle):
     color_text.write(f"{color_name} Wins!", align="center", font=("Arial", 28, "bold"))
 
 def draw_track(num_racers):
-    """Draws the racing track dynamically based on racers."""
+    #Draws the racing track dynamically based on racers
     track_height = num_racers * LANE_HEIGHT
     start_x = -WIDTH // 2
     start_y = track_height // 2
@@ -113,11 +114,16 @@ def init_turtle():
     screen = turtle.Screen()
     screen.setup(WIDTH, HEIGHT)
     screen.title("Turtle Race")
-    screen.bgcolor("white")
+    
+    # Load and set background image
+   
+    screen.bgpic(BACKGROUND_IMAGE)
+   
+
     return screen
 
 def create_tkinter_button():
-    """Creates a Tkinter window, the Start button."""
+    #Creates a  Start button with a Tkinter  
     global root
     root = tk.Tk()
     root.title("Start the Race")
