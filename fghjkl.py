@@ -1,25 +1,17 @@
 import turtle
-import random
 import time
+import random
 import tkinter as tk
 
 # Constants
 WIDTH, HEIGHT = 800, 600
 LANE_HEIGHT = 100
 COLORS = ['black', 'purple', 'cyan', 'pink', 'brown']
-
-# Game state variables
 start_pressed = False
-turtles = []
-
-# Initialize Turtle screen
-screen = turtle.Screen()
-screen.setup(WIDTH, HEIGHT)
-screen.title("Turtle Race")
-screen.bgpic("im.png")  # Set background image
+race_ongoing = False  # Track if a race has started
 
 def get_number_of_racers():
-    """Get number of racers from user input."""
+    #Get number of racers from user input
     while True:
         racers = input("Enter the number of racers (2-5): ")
         if racers.isdigit():
@@ -29,31 +21,28 @@ def get_number_of_racers():
         print("Invalid input! Please enter a number between 2 and 5.")
 
 def start_race():
-    """Start the race when the button is clicked."""
-    global start_pressed
+    #Starts the race when the button is clicked
+    global start_pressed, race_ongoing
     start_pressed = True
+    race_ongoing = True
     root.quit()
 
 def reset_race():
-    """Reset the race without closing the Turtle window."""
-    global start_pressed, turtles
+    #Resets the race properly, keeping the window open
+    global start_pressed
     start_pressed = False
+    race_ongoing = False
+    turtle.clearscreen()
 
-    # Clear the screen but keep the window open
-    screen.clearscreen()
-    screen.bgpic("im.png")  # Restore background
-
-    # Redraw the track and create new turtles
-    draw_track(len(turtles))
-    turtles = create_turtles(len(turtles))
+    main ()
 
 def exit_game():
-    """Exit both Turtle and Tkinter properly."""
-    root.quit()
-    turtle.bye()
+    #Closes both Turtle and Tkinter windows properly
+    root.destroy()  # Close Tkinter
+    turtle.bye()  # Close Turtle window
 
 def race():
-    """Move turtles randomly until one reaches the finish line."""
+    #Moves turtles randomly until one reaches the finish line
     global turtles
     while not start_pressed:
         time.sleep(0.1)  # Wait for start
@@ -63,34 +52,31 @@ def race():
             racer.forward(random.randint(1, 10))
             if racer.xcor() >= WIDTH // 2 - 30:
                 declare_winner(racer)
-                return  # Exit race function immediately
+                return
 
 def declare_winner(winner_turtle):
-    """Display the winner near the winning turtle."""
-    winner_turtle.shapesize(2)  # Enlarge winner
-
-    # Get the winner's position
-    winner_x, winner_y = winner_turtle.xcor(), winner_turtle.ycor()
+    #Displays the winner and enlarges the turtle
+    winner_turtle.shapesize(2)
 
     # Winner text
     winner_text = turtle.Turtle()
     winner_text.hideturtle()
     winner_text.penup()
-    winner_text.goto(winner_x + 40, winner_y)  # Adjust position near the turtle
+    winner_text.goto(0, 50)
     winner_text.color("white")
-    winner_text.write("WINNER!", align="left", font=("Arial", 24, "bold"))
+    winner_text.write("WINNER!", align="center", font=("Arial", 36, "bold"))
 
-    # Display the winning color
+    # Color text
     color_name = winner_turtle.color()[0].capitalize()
     color_text = turtle.Turtle()
     color_text.hideturtle()
     color_text.penup()
-    color_text.goto(0, -200)
-    color_text.color("black")
+    color_text.goto(0, -50)
+    color_text.color("white")
     color_text.write(f"{color_name} Wins!", align="center", font=("Arial", 28, "bold"))
 
 def draw_track(num_racers):
-    """Draw the racing track dynamically."""
+    #Draws the racing track dynamically based on racers, including the finish line
     track_height = num_racers * LANE_HEIGHT
     start_x = -WIDTH // 2
     start_y = track_height // 2
@@ -124,7 +110,7 @@ def draw_track(num_racers):
         turtle.goto(finish_x, start_y - (i + 1) * LANE_HEIGHT)
 
 def create_turtles(num_racers):
-    """Create and position turtles at the start line."""
+    #Creates and positions turtles at the start line
     turtles = []
     start_x = -WIDTH // 2 + 30
     track_height = num_racers * LANE_HEIGHT
@@ -141,22 +127,36 @@ def create_turtles(num_racers):
 
     return turtles
 
+def init_turtle():
+    # Initialize the screen
+    screen = turtle.Screen()
+    screen.setup(WIDTH, HEIGHT)
+    screen.title("Turtle Race")
+
+    screen.bgpic("img.png")  # Background image
+
+    return screen
+
+
 def create_tkinter_buttons():
-    """Create Tkinter buttons for race control."""
+    #Creates Tkinter window with Start, Reset, and Exit buttons
     global root
     root = tk.Tk()
     root.title("Race Controls")
 
+    # Start button
     start_button = tk.Button(root, text="Start Race", command=start_race,
                              font=("Arial", 16, "bold"), bg="green", fg="white",
                              padx=20, pady=10, cursor="hand2")
     start_button.pack(padx=20, pady=10)
 
+    # Reset button
     reset_button = tk.Button(root, text="Reset Race", command=reset_race,
                              font=("Arial", 16, "bold"), bg="blue", fg="white",
                              padx=20, pady=10, cursor="hand2")
     reset_button.pack(padx=20, pady=10)
 
+    # Exit button
     exit_button = tk.Button(root, text="Exit Game", command=exit_game,
                             font=("Arial", 16, "bold"), bg="red", fg="white",
                             padx=20, pady=10, cursor="hand2")
@@ -169,8 +169,9 @@ def main():
     num_racers = get_number_of_racers()
     draw_track(num_racers)
     turtles = create_turtles(num_racers)
-
-    create_tkinter_buttons()
+    
+    create_tkinter_buttons()  # Wait for user input (start/reset/exit)
+    
     race()
     time.sleep(20)
 
